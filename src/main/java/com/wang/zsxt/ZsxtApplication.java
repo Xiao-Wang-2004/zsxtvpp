@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.wang.zsxt.comtset.dao")
+@MapperScan("com.wang.zsxt.login.dao")
 public class ZsxtApplication {
 
     public static void main(String[] args) {

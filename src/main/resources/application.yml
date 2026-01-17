@@ -11,8 +11,8 @@ server:
   port: 8099
 
 mybatis:
-  mapper-locations: classpath:comtest/*.xml
-  type-aliases-package: com.wang.zsxt.comtset.entity
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.wang.zsxt.entity
 
 
 
