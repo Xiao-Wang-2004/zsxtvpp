@@ -38,6 +38,13 @@ public class LoginServiceImpl implements LoginService {
         String username = jsonNode.get("username").asText();
         String password = jsonNode.get("password").asText();
 
+        if (username.contains(" ")) {
+            return Response.error("用户名不能包含空格");
+        }
+        if (password.contains(" ")) {
+            return Response.error("密码不能包含空格");
+        }
+
         HashMap<String,Object> param = new HashMap<>();
         param.put("username", username);
         param.put("password", password);
