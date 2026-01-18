@@ -13,6 +13,12 @@
     <select id="getName" resultType="java.lang.String">
         select name
         from user_info
+        where userid = #{userid}
+    </select>
+
+    <select id="getUserId" resultType="java.lang.String">
+        select userid
+        from user_info
         where username = #{username}
     </select>
 </mapper>

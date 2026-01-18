@@ -10,4 +10,6 @@ public interface LoginDao {
     int login(HashMap<String,Object> param);
 
     String getName(String username);
+
+    String getUserId(String username);
 }

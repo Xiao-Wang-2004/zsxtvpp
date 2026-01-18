@@ -21,11 +21,11 @@ public class RequestUtil {
     }
 
     /**
-     * 从当前请求中获取JWT Token中的用户名
+     * 从当前请求中获取JWT Token中的用户ID
      *
-     * @return 用户名，如果不存在则返回null
+     * @return 用户ID，如果不存在则返回null
      */
-    public static String getUsernameFromToken() {
+    public static String getUserIdFromToken() {
         HttpServletRequest request = getCurrentRequest();
         if (request != null) {
             Claims claims = (Claims) request.getAttribute("claims");
@@ -37,12 +37,12 @@ public class RequestUtil {
     }
 
     /**
-     * 从给定的请求中获取JWT Token中的用户名
+     * 从给定的请求中获取JWT Token中的用户ID
      *
      * @param request HttpServletRequest对象
-     * @return 用户名，如果不存在则返回null
+     * @return 用户ID，如果不存在则返回null
      */
-    public static String getUsernameFromToken(HttpServletRequest request) {
+    public static String getUserIdFromToken(HttpServletRequest request) {
         if (request != null) {
             Claims claims = (Claims) request.getAttribute("claims");
             if (claims != null) {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.infomation.dao.UnitDao">
+
+    <insert id="insertInfo">
+        insert into unit_info(unitid, name, person, phone, address, type, userid)
+        values(#{unitid}, #{name}, #{person}, #{phone}, #{address}, #{type}, #{userid})
+    </insert>
+    <update id="updateInfo">
+        update unit_info
+        set
+        unitid = #{unitid},
+        name = #{name},
+        person = #{person},
+        phone = #{phone},
+        address = #{address},
+        type = #{type}
+        where unitid = #{unitid}
+        and userid = #{userid}
+    </update>
+
+    <delete id="deleteInfo">
+         delete from unit_info
+         where unitid = #{unitid}
+         and userid = #{userid}
+    </delete>
+
+    <select id="getList" resultType="java.util.HashMap">
+        select
+            ifNull(unitid, '-') as unitid,
+            ifNull(name, '-') as name,
+            ifNull(person, '-') as person,
+            ifNull(phone, '-') as phone,
+            ifNull(address, '-') as address,
+            ifNull(type, '-') as type
+        from unit_info
+        where userid = #{userid}
+    </select>
+
+    <select id="getInfo" resultType="java.lang.Integer">
+        select count(*)
+        from unit_info
+        where unitid = #{unitid}
+        and userid = #{userid}
+    </select>
+
+    <select id="getInfo2" resultType="java.lang.Integer">
+        select count(*)
+        from unit_info
+        where unitid = #{unitid}
+          and userid = #{userid}
+    </select>
+
+</mapper>

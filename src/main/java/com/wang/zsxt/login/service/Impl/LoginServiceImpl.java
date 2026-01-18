@@ -51,7 +51,8 @@ public class LoginServiceImpl implements LoginService {
 
         if(loginDao.login(param) > 0){
             // 登录成功，生成token
-            String token = JwtUtil.createToken(username);
+            String userid = loginDao.getUserId(username);
+            String token = JwtUtil.createToken(userid);
             return Response.success("登录成功", token);
         }else{
             return Response.error("账号或密码错误");
@@ -60,8 +61,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public HashMap<String, Object> getCurrentUser() {
-        String username = RequestUtil.getUsernameFromToken();
-        String name = loginDao.getName(username);
+        String userid = RequestUtil.getUserIdFromToken();
+        String name = loginDao.getName(userid);
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
         return result;
