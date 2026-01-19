@@ -36,6 +36,24 @@
             ifNull(type, '-') as type
         from unit_info
         where userid = #{userid}
+        <if test="unitid != null and unitid != ''">
+            and unitid like CONCAT('%', #{unitid}, '%')
+        </if>
+        <if test="name != null and name != ''">
+            and name like CONCAT('%', #{name}, '%')
+        </if>
+        <if test="person != null and person != ''">
+            and person like CONCAT('%', #{person}, '%')
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone like CONCAT('%', #{phone}, '%')
+        </if>
+        <if test="address != null and address != ''">
+            and address like CONCAT('%', #{address}, '%')
+        </if>
+        <if test="type != null and type != ''">
+            and type like CONCAT('%', #{type}, '%')
+        </if>
     </select>
 
     <select id="getInfo" resultType="java.lang.Integer">
