@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.infomation.dao.MoldNumberDao">
+
+    <insert id="insertInfo">
+        insert into mold_number(moldid, part, numberid, quantity, remarks, userid)
+        values(#{moldid}, #{part}, #{numberid}, #{quantity}, #{remarks}, #{userid})
+    </insert>
+
+    <update id="updateInfo">
+        update mold_number
+        set part = #{part},
+            numberid = #{numberid},
+            quantity = #{quantity},
+            remarks = #{remarks}
+        where userid = #{userid}
+        and moldid = #{moldid}
+    </update>
+
+    <delete id="deleteInfo">
+        delete from mold_number
+        where userid = #{userid}
+        and moldid = #{moldid}
+    </delete>
+
+    <select id="list" resultType="java.util.HashMap">
+        select mn.moldid,
+               mn.part,
+               mn.numberid,
+               mn.quantity,
+               mn.remarks
+        from mold_number mn
+        <where> mn.userid = #{userid}
+            <if test="moldid != null and moldid != ''">
+                and mn.moldid like CONCAT('%', #{moldid}, '%')
+          </if>
+            <if test="part != null and part != ''">
+                and mn.part like CONCAT('%', #{part}, '%')
+            </if>
+        <if test="numberid != null and numberid != ''">
+                and mn.numberid like CONCAT('%', #{numberid}, '%')
+            </if>
+         <if test="quantity != null and quantity != ''">
+                and mn.quantity like CONCAT('%', #{quantity}, '%')
+            </if>
+           <if test="remarks != null and remarks != ''">
+                and mn.remarks like CONCAT('%', #{remarks}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getInfo" resultType="java.lang.Integer">
+        select count(*)
+        from mold_number
+        where userid = #{userid}
+        and moldid = #{moldid}
+    </select>
+
+</mapper>

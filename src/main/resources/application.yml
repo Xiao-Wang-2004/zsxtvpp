@@ -16,7 +16,7 @@ mybatis:
 
 xxl:
   job:
-    enabled: true  # 启用XXL-Job功能
+    enabled: false  # 启用XXL-Job功能
     admin:
       addresses: http://127.0.0.1:8088/xxl-job-admin
     executor:
