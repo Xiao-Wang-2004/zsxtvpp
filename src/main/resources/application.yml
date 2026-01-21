@@ -14,6 +14,18 @@ mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.wang.zsxt.entity
 
+xxl:
+  job:
+    enabled: true  # 启用XXL-Job功能
+    admin:
+      addresses: http://127.0.0.1:8088/xxl-job-admin
+    executor:
+      appname: wang
+      address:   # 执行器地址，一般留空，让系统自动检测
+      ip: 127.0.0.1
+      port: 9999
+    accessToken: default_token
+
 
 
 

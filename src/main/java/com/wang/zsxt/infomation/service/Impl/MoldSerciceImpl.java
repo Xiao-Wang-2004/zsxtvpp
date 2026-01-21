@@ -80,4 +80,21 @@ public class MoldSerciceImpl implements MoldService {
             return Response.error("操作失败");
         }
     }
+
+    public void keepMold(){
+        List<HashMap<String, Object>> list = moldDao.getAllList();
+        for (HashMap<String, Object> map : list) {
+            Integer life = Integer.parseInt(map.get("life").toString());
+            Integer usedlife =Integer.parseInt(map.get("usedlife").toString());
+
+            Double doublelife = life.doubleValue();
+            Double useddoublelife = usedlife.doubleValue();
+
+            if(useddoublelife/doublelife <= 0.3){
+                moldDao.needKeep(map.get("moldid").toString(), map.get("userid").toString());
+            }else {
+                moldDao.updateStatus(map.get("moldid").toString(), map.get("userid").toString());
+            }
+        }
+    }
 }

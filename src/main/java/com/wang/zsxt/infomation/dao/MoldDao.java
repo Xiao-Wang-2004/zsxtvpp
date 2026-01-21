@@ -21,4 +21,8 @@ public interface MoldDao {
     void deleteInfo(String moldid, String userid);
 
     void updateStatus(String moldid, String userid);
+
+    List<HashMap<String, Object>> getAllList();
+
+    void needKeep(String moldid, String userid);
 }

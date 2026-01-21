@@ -30,6 +30,14 @@
          and userid = #{userid}
     </update>
 
+    <update id="needKeep">
+         update mold_info
+         set
+         status = '2'
+         where moldid = #{moldid}
+         and userid = #{userid}
+    </update>
+
     <delete id="deleteInfo">
         delete from mold_info
         where moldid = #{moldid}
@@ -87,5 +95,10 @@
         from mold_info
         where moldid = #{moldid}
           and userid = #{userid}
+    </select>
+
+    <select id="getAllList" resultType="java.util.HashMap">
+        select *
+        from mold_info
     </select>
 </mapper>

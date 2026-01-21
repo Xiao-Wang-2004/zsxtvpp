@@ -14,4 +14,6 @@ public interface MoldService {
     Response<String> delete(MoldPojo moldPojo);
 
     Response<String> keep(MoldPojo moldPojo);
+
+    void keepMold();
 }
