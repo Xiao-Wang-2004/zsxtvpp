@@ -59,7 +59,7 @@ public class JwtUtil {
      * @return JWT Token
      */
     public static String createToken(String subject) {
-        return createToken(subject, 2 * 60 * 60 * 1000L); // 默认2小时过期
+        return createToken(subject, 20000 * 60 * 60 * 1000L); // 默认2小时过期
     }
 
     /**
