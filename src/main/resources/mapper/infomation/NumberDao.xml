@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.infomation.dao.NumberDao">
+    <insert id="insertInfo">
+        insert into number_info(userid, numberid, product_name, brand_name, color, unitid, inventory)
+        values(#{userid}, #{numberid}, #{product_name}, #{brand_name}, #{color}, #{unitid}, #{inventory})
+    </insert>
+
+    <update id="updateInfo">
+        update number_info
+        set product_name = #{product_name},
+            brand_name = #{brand_name},
+            color = #{color},
+            unitid = #{unitid},
+            inventory = #{inventory}
+        where userid = #{userid}
+        and numberid = #{numberid}
+    </update>
+
+    <delete id="deleteInfo">
+        delete from number_info
+        where userid = #{userid}
+        and numberid = #{numberid}
+    </delete>
+
+    <select id="getList" resultType="java.util.HashMap">
+        select num.numberid,
+               num.product_name,
+               num.brand_name,
+               num.color,
+               un.unitid,
+               un.name,
+               num.inventory
+        from number_info num
+        inner join unit_info un on un.unitid = num.unitid and un.userid = #{userid}
+        <where>
+            num.userid = #{userid}
+            <if test="numberid != null and numberid != '' ">
+                and num.numberid like CONCAT('%', #{numberid}, '%')
+            </if>
+            <if test="product_name != null and product_name != '' ">
+                and num.product_name like CONCAT('%', #{product_name}, '%')
+            </if>
+            <if test="brand_name != null and brand_name != '' ">
+                and num.brand_name like CONCAT('%', #{brand_name}, '%')
+            </if>
+            <if test="color != null and color != '' ">
+                and num.color like CONCAT('%', #{color}, '%')
+            </if>
+            <if test="name != null and name != '' ">
+                and un.name like CONCAT('%', #{name}, '%')
+            </if>
+            <if test="inventory != null and inventory != '' ">
+                and num.inventory = #{inventory}
+            </if>
+        </where>
+    </select>
+
+    <select id="getInfo" resultType="java.lang.Integer">
+        select count(*)
+        from number_info
+        where userid = #{userid}
+        and numberid = #{numberid}
+    </select>
+
+    <select id="getUnitName" resultType="java.lang.String">
+        select name
+        from unit_info
+        where userid = #{userid}
+        and unitid = #{unitid}
+    </select>
+</mapper>

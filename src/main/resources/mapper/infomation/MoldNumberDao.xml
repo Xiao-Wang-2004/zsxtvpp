@@ -42,7 +42,7 @@
                 and mn.numberid like CONCAT('%', #{numberid}, '%')
             </if>
          <if test="quantity != null and quantity != ''">
-                and mn.quantity like CONCAT('%', #{quantity}, '%')
+                and mn.quantity = #{quantity}
             </if>
            <if test="remarks != null and remarks != ''">
                 and mn.remarks like CONCAT('%', #{remarks}, '%')

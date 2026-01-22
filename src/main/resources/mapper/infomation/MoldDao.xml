@@ -69,12 +69,6 @@
           <if test="type != null and type != ''">
               and type like CONCAT('%', #{type}, '%')
           </if>
-         <if test="life != null and life != ''">
-              and life like CONCAT('%', #{life}, '%')
-          </if>
-          <if test="usedlife != null and usedlife != ''">
-              and usedlife like CONCAT('%', #{usedlife}, '%')
-          </if>
          <if test="location != null and location != ''">
               and location like CONCAT('%', #{location}, '%')
           </if>
