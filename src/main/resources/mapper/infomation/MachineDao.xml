@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.infomation.dao.MachineDao">
+    <insert id="insertInfo">
+        insert into machine_info(machineid, brand, ton, date, status,userid)
+        values(#{machineid}, #{brand}, #{ton}, #{date}, #{status},#{userid})
+    </insert>
+
+    <update id="updateInfo">
+        update machine_info
+        set
+        machineid = #{machineid},
+        brand = #{brand},
+        ton = #{ton},
+        date = #{date},
+        status = #{status}
+        where machineid = #{machineid}
+        and userid = #{userid}
+    </update>
+
+    <delete id="deleteInfo">
+        delete from machine_info
+        where machineid = #{machineid}
+        and userid = #{userid}
+    </delete>
+
+    <select id="list" resultType="java.util.HashMap">
+        select machineid,
+               ifNull(brand,'-') as brand,
+               ifNull(ton,'-') as ton,
+               ifNull(date,'-') as date,
+               status
+        from machine_info
+        <where>
+            userid = #{userid}
+            <if test="machineid != null and machineid != ''">
+                and machineid like CONCAT('%', #{machineid}, '%')
+            </if>
+            <if test="brand != null and brand != ''">
+                and brand like CONCAT('%', #{brand}, '%')
+            </if>
+            <if test="ton != null and ton != ''">
+                and ton = #{ton}
+            </if>
+                <if test="date != null">
+                and date = date_format(#{date},'%Y-%m-%d')
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="getInfo" resultType="java.lang.Integer">
+        select count(*)
+        from machine_info
+        where machineid = #{machineid}
+        and userid = #{userid}
+    </select>
+</mapper>
