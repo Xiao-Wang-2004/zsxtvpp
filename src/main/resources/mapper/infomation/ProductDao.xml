@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.infomation.dao.ProductDao">
+    <insert id="insertInfo">
+        insert into product_info(productid, name, model, moldid, userid)
+        values(#{productid}, #{name}, #{model}, #{moldid}, #{userid})
+    </insert>
+    <update id="updateInfo">
+        update product_info
+        set
+        productid = #{productid},
+        name = #{name},
+        model = #{model},
+        moldid = #{moldid}
+        where productid = #{productid}
+        and userid = #{userid}
+    </update>
+    <delete id="deleteInfo">
+        delete from product_info
+        where productid = #{productid}
+        and userid = #{userid}
+    </delete>
+
+    <select id="list" resultType="java.util.HashMap">
+        select pi.productid,
+               pi.name,
+               pi.model,
+               pi.moldid,
+               mn.quantity
+        from product_info pi
+        inner join mold_number mn on mn.moldid = pi.moldid and mn.userid = #{userid}
+        <where>
+            pi.userid = #{userid}
+            <if test="productid != null and productid != ''">
+                and pi.productid like CONCAT('%', #{productid}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and pi.name like CONCAT('%', #{name}, '%')
+            </if>
+            <if test="model != null and model != ''">
+                and pi.model like CONCAT('%', #{model}, '%')
+            </if>
+            <if test="moldid != null and moldid != ''">
+                and pi.moldid like CONCAT('%', #{moldid}, '%')
+            </if>
+            <if test="quantity != null">
+                and mn.quantity = #{quantity}
+            </if>
+        </where>
+    </select>
+    <select id="getInfo" resultType="java.lang.Integer">
+        select count(*)
+        from product_info
+        where productid = #{productid}
+        and userid = #{userid}
+    </select>
+</mapper>
