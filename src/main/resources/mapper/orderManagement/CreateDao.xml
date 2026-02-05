@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.orderManagement.dao.CreateDao">
+    <insert id="add">
+        insert into order_info(orderid,userid,unitid,delivery_date,order_data,productid,order_count,machineid,remark,type)
+        values(#{orderid},'1',#{unitid},#{delivery_date},#{time},#{productid},#{order_count},#{machineid},#{remark},1)
+    </insert>
+
+    <select id="getOrderCount" resultType="java.lang.Integer">
+        select count(*)
+        from order_info
+        where userid = #{userid}
+        and orderid like concat('%' , #{time}, '%')
+    </select>
+
+    <select id="getinfo" resultType="java.util.HashMap">
+        select pi.moldid,
+               concat(ni.product_name,'-',ni.brand_name) as number_name
+        from product_info pi
+        inner join mold_number mn on mn.userid = #{userid} and mn.moldid = pi.moldid
+        inner join number_info ni on ni.userid = #{userid} and ni.numberid = mn.numberid
+        where pi.productid = #{productid}
+        and pi.userid = #{userid}
+    </select>
+
+</mapper>
