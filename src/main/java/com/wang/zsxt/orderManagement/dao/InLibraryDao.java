@@ -15,4 +15,6 @@ public interface InLibraryDao {
     int getEntry(InLibraryPojo param);
 
     void add(InLibraryPojo param);
+
+    void updateOrder(InLibraryPojo param);
 }

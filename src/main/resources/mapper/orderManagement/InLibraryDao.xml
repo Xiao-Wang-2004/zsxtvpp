@@ -7,6 +7,13 @@
         values(#{entryid},'1',#{orderid},#{count},#{location},#{time})
     </insert>
 
+    <update id="updateOrder">
+        update order_info
+        set product_count = COALESCE(product_count, 0) + #{count}
+            where orderid = #{orderid}
+            and userid = #{userid}
+    </update>
+
     <select id="getEntryCount" resultType="java.lang.Integer">
         select count(*)
         from library

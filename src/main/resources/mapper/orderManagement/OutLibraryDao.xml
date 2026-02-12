@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.orderManagement.dao.OutLibraryDao">
+
+
+    <select id="getList" resultType="java.util.HashMap">
+        select  distinct lib.orderid,
+                concat(pi.productid,'(',pi.name,')') as product,
+                oi.product_count as count,
+                oi.order_count,
+                lib.location
+        from  library lib
+        inner join order_info oi on oi.userid = #{userid} and oi.orderid = lib.orderid
+        inner join product_info pi on pi.userid = #{userid} and pi.productid = oi.productid
+        where lib.userid = #{userid}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count
+        from library
+        where userid = #{userid}
+          and orderid = #{orderid}
+    </select>
+</mapper>

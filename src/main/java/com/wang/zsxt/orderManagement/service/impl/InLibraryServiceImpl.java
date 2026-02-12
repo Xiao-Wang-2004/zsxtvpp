@@ -46,6 +46,7 @@ public class InLibraryServiceImpl implements InLibraryService {
                 return Response.error("该订单已入库");
             } else {
                 inLibraryDao.add(param);
+                inLibraryDao.updateOrder(param);
                 return Response.success("入库成功");
             }
         } catch (Exception e) {
