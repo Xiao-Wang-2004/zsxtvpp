@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.orderManagement.dao.InLibraryDao">
+    <insert id="add">
+        insert into library(entryid,userid,orderid,count,location,time)
+        values(#{entryid},'1',#{orderid},#{count},#{location},#{time})
+    </insert>
+
+    <select id="getEntryCount" resultType="java.lang.Integer">
+        select count(*)
+        from library
+        where userid = #{userid}
+        and entryid like concat('%' , #{time}, '%')
+    </select>
+
+    <select id="getOrderList" resultType="java.util.HashMap">
+        select concat(oi.orderid,'(',pi.name,')') as ordername,
+               oi.orderid,
+               pi.name
+        from order_info oi
+        inner join product_info pi on pi.userid = #{userid} and pi.productid = oi.productid
+        where oi.userid = #{userid}
+    </select>
+
+    <select id="getEntry" resultType="java.lang.Integer">
+        select count(*)
+        from library
+        where userid = #{userid}
+        and entryid = #{entryid}
+    </select>
+</mapper>
