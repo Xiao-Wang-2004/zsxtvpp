@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.orderManagement.dao.ProgressDao">
+
+    <select id="list" resultType="java.util.HashMap">
+        select oi.orderid,
+               oi.machineid,
+               concat(pi.productid, '(', pi.name, ')') as product,
+               oi.order_count,
+               oi.product_count,
+               oi.type
+        from order_info oi
+        inner join product_info pi on pi.userid = #{userid} and pi.productid = oi.productid
+        where oi.userid = #{userid}
+    </select>
+</mapper>
