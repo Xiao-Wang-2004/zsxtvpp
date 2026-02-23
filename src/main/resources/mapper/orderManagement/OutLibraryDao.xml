@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wang.zsxt.orderManagement.dao.OutLibraryDao">
+    <update id="out">
+        update order_info
+        set order_count = order_count - #{out_count},
+            product_count = product_count - #{out_count}
+        where orderid = #{orderid}
+          and userid = #{userid}
+    </update>
 
 
     <select id="getList" resultType="java.util.HashMap">

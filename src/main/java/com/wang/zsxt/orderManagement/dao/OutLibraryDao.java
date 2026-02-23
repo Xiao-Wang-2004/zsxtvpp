@@ -11,4 +11,6 @@ public interface OutLibraryDao {
     List<HashMap<String, Object>> getList(OutLibraryPojo param);
 
     List<Integer> getCount(String orderid, String userid);
+
+    void out(HashMap<String, Object> param2);
 }

@@ -6,4 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 public interface OutLibraryService {
     Response<Object> getList(@RequestBody OutLibraryPojo param);
+
+    Response<Object> out(OutLibraryPojo param);
 }

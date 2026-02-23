@@ -26,4 +26,25 @@ public class OutLibraryServiceImpl implements OutLibraryService {
 
         return Response.success(list);
     }
+
+    @Override
+    public Response<Object> out(OutLibraryPojo param) {
+        try {
+            for (HashMap<String, Object> map : param.getList()) {
+                HashMap<String, Object> param2 = new HashMap<>() {
+                    {
+                        put("orderid", map.get("orderid"));
+                        put("out_count", map.get("out_count"));
+                        put("userid", param.getUserid());
+                    }
+                };
+
+                outLibraryDao.out(param2);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.error("出库失败");
+        }
+        return Response.success("出库成功");
+    }
 }
