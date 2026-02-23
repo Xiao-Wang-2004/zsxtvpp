@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.refer.dao.OrederReferDao">
+
+
+    <select id="list" resultType="java.util.HashMap">
+        select oi.orderid,
+               oi.order_data as order_date,
+               ui.name as unit_name,
+               pi.name as product_name,
+               oi.machineid,
+               oi.order_count,
+               oi.product_count,
+               oi.delivery_date,
+               oi.type,
+               oi.remark
+        from order_info oi
+        inner join unit_info ui on ui.userid = #{userid} and ui.unitid = oi.unitid
+        inner join product_info pi on pi.userid = #{userid} and pi.productid = oi.productid
+        <where>
+            oi.userid = #{userid}
+            <if test="orderid != null and orderid != ''">
+                and oi.orderid like CONCAT('%', #{orderid}, '%')
+            </if>
+            <if test="order_date != null ">
+                and oi.order_data = #{order_date}
+            </if>
+            <if test="unit_name != null and unit_name != ''">
+                and ui.name like CONCAT('%', #{unit_name}, '%')
+            </if>
+            <if test="product_name != null and product_name != ''">
+                and pi.name like CONCAT('%', #{product_name}, '%')
+            </if>
+            <if test="machineid != null and machineid != ''">
+                and oi.machineid like CONCAT('%', #{machineid}, '%')
+            </if>
+            <if test="delivery_date != null">
+                and oi.delivery_date = #{delivery_date}
+            </if>
+            <if test="type != null">
+                and oi.type = #{type}
+            </if>
+        </where>
+    </select>
+</mapper>
