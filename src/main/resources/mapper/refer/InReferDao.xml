@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.zsxt.refer.dao.InReferDao">
+
+    <select id="list" resultType="java.util.HashMap">
+        select li.entryid,
+               ui.name as username,
+               li.count,
+                DATE_FORMAT(li.time, '%Y-%m-%d %H:%i:%s') as date,
+                li.orderid,
+               li.location
+        from library li
+        inner join user_info ui on ui.userid = li.userid
+        <where>
+            li.userid = #{userid}
+            <if test="entryid != null and entryid != ''">
+                and li.entryid like CONCAT('%', #{entryid}, '%')
+            </if>
+            <if test="orderid != null and orderid != ''">
+                and li.orderid like CONCAT('%', #{orderid}, '%')
+            </if>
+            <if test="location != null and location != ''">
+                  and li.location like CONCAT('%', #{location}, '%')
+            </if>
+            <if test="count != null">
+                and li.count = #{count}
+            </if>
+            <if test="date != null">
+                and li.time BETWEEN CONCAT(#{date}, ' 00:00:00') AND CONCAT(#{date}, ' 23:59:59')
+            </if>
+            <if test="username != null and username != ''">
+                and ui.name like CONCAT('%', #{username}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
