@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wang.zsxt.orderManagement.dao.OutLibraryDao">
+
+    <insert id="addOut">
+        insert into out_library(outid,userid,orderid,count,time)
+        values(#{outid},#{userid},#{orderid},#{count},#{time})
+    </insert>
+
     <update id="out">
         update order_info
         set order_count = order_count - #{out_count},
@@ -28,5 +34,12 @@
         from library
         where userid = #{userid}
           and orderid = #{orderid}
+    </select>
+
+    <select id="getCount2" resultType="java.lang.Integer">
+        select count(*)
+        from out_library
+        where userid = #{userid}
+          and outid like concat('%',#{time},'%')
     </select>
 </mapper>

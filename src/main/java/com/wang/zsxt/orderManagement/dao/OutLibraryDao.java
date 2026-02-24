@@ -13,4 +13,8 @@ public interface OutLibraryDao {
     List<Integer> getCount(String orderid, String userid);
 
     void out(HashMap<String, Object> param2);
+
+    int getCount2(String time, String userid);
+
+    void addOut(HashMap<String, Object> param3);
 }
