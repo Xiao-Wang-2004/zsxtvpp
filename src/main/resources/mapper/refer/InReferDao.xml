@@ -10,7 +10,7 @@
                 DATE_FORMAT(li.time, '%Y-%m-%d %H:%i:%s') as date,
                 li.orderid,
                li.location
-        from library li
+        from in_library li
         inner join user_info ui on ui.userid = li.userid
         <where>
             li.userid = #{userid}

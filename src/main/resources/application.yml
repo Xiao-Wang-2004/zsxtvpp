@@ -2,7 +2,7 @@ spring:
   application:
     name: zsxt
   datasource:
-    url: jdbc:mysql://localhost:3306/app
+    url: jdbc:mysql://8.129.129.34:3306/app
     username: root
     password: '0630'
 

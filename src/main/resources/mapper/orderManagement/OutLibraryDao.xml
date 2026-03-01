@@ -23,7 +23,7 @@
                 oi.product_count as count,
                 oi.order_count,
                 lib.location
-        from  library lib
+        from  in_library lib
         inner join order_info oi on oi.userid = #{userid} and oi.orderid = lib.orderid
         inner join product_info pi on pi.userid = #{userid} and pi.productid = oi.productid
         where lib.userid = #{userid}
@@ -31,7 +31,7 @@
 
     <select id="getCount" resultType="java.lang.Integer">
         select count
-        from library
+        from in_library
         where userid = #{userid}
           and orderid = #{orderid}
     </select>
